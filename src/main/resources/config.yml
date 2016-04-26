@@ -8,3 +8,8 @@ ranks:
   moderator:
     prefix: '&3[M]'
     weight: '9'
+
+mutes:
+  example:
+    duration: 50000
+    start: 123989934

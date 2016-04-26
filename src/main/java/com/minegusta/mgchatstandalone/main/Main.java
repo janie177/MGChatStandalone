@@ -2,6 +2,7 @@ package com.minegusta.mgchatstandalone.main;
 
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.listeners.MessageListener;
+import com.minegusta.mgchatstandalone.task.SaveTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,12 +34,18 @@ public class Main extends JavaPlugin {
 
 		this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageListener());
+
+		//Load the mutes
+		ConfigHandler.loadMutes(getPlugin());
+
+		//Start the savetask
+		SaveTask.start();
 	}
 
 	@Override
 	public void onDisable()
 	{
-
+		SaveTask.stop();
 	}
 
 	public static Plugin getPlugin()

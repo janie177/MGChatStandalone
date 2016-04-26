@@ -1,6 +1,7 @@
 package com.minegusta.mgchatstandalone.commands;
 
 import com.minegusta.mgchatstandalone.util.MessageSender;
+import com.minegusta.mgchatstandalone.util.MuteHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,12 @@ import org.bukkit.entity.Player;
 public class WhisperCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
+
+		if(!s.hasPermission("minegusta.whisper"))
+		{
+			s.sendMessage(ChatColor.RED + "No permission.");
+			return true;
+		}
 
 		if(args.length < 2)
 		{
@@ -26,6 +33,13 @@ public class WhisperCommand implements CommandExecutor {
 
 		Player p = (Player) s;
 
+		if(MuteHandler.isMuted(p.getName()))
+		{
+			p.sendMessage(ChatColor.YELLOW + "You are muted!");
+			p.sendMessage(ChatColor.YELLOW + "You can talk again in " + MuteHandler.getMute(p.getName()).getRemainingMinutes() + " minutes.");
+			return true;
+		}
+
 		try
 		{
 			String name = args[0];
@@ -38,6 +52,9 @@ public class WhisperCommand implements CommandExecutor {
 			}
 
 			MessageSender.sendPlayerMessage(p, name, msg);
+
+			ReplyCommand.setReply(p.getName(), name);
+			ReplyCommand.setReply(name, p.getName());
 
 			p.sendMessage(ChatColor.GRAY + "[MSG]Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
 

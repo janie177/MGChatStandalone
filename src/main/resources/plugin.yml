@@ -9,3 +9,16 @@ commands:
     description: Private message a player.
     aliases: [msg, pm]
     default: true
+  mute:
+    usage: /Mute [player] [duration(minutes)]
+    description: Mute and unmute players.
+    default: op
+  unmute:
+    usage: /Unmute [player]
+    description: Mute and unmute players.
+    default: op
+  reply:
+    usage: /Reply [message]
+    aliases: [r]
+    description: Send a message to the player that last whispered you.
+    default: true
