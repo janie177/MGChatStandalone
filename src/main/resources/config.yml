@@ -14,7 +14,9 @@ ranks:
   moderator:
     prefix: '&3[M]'
     weight: '9'
-
+  donor:
+    prefix: '&6[&a%amount%&6]'
+    weight: '1'
 mutes:
   example:
     duration: 50000

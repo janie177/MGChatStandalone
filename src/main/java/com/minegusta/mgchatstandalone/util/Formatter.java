@@ -29,7 +29,18 @@ public class Formatter {
 			List<String> groups = user.getParentIdentifiers();
 			for(String s : groups)
 			{
-				rank = rank + ConfigHandler.getDisplay(s);
+				//Getting the rank, defaults to empty string if it doesn't exist in the file.
+				String rankDisplay = ConfigHandler.getDisplay(s);
+
+				//If the player has a donor rank, it gets the number and inserts it in the rank here. No need to make a donor display for every possible amount.
+				if(s.toLowerCase().startsWith("donor"))
+				{
+					String donor = s.replaceAll("\\d+.*", "");
+					String digit = s.replaceAll("[\\D]", "");
+
+					rankDisplay = ConfigHandler.getDisplay(donor).replace("%amount%", digit);
+				}
+				rank = rank + rankDisplay;
 			}
 		}
 
