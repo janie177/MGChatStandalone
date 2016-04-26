@@ -1,0 +1,11 @@
+name: MGChatStandalone
+version: ${project.version}
+author: janie177
+softdepend: [PermissionsEx]
+main: com.minegusta.mgchatstandalone.main.Main
+commands:
+  whisper:
+    usage: /Whisper [player]
+    description: Private message a player.
+    aliases: [msg, pm]
+    default: true

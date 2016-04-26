@@ -1,0 +1,10 @@
+server-name: server
+send-to: server1 server2
+server-name-in-chat: server
+ranks:
+  admin:
+    prefix: &4[A]
+    weight: 10
+  moderator:
+    prefix: &3[M]
+    weight: 9
