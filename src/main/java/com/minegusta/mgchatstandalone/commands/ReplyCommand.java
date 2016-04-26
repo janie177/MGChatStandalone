@@ -55,7 +55,7 @@ public class ReplyCommand implements CommandExecutor {
 		}
 
 		String message = "";
-		for(int i = 1; i < args.length; i++)
+		for(int i = 0; i < args.length; i++)
 		{
 			message = message + args[i] + " ";
 		}

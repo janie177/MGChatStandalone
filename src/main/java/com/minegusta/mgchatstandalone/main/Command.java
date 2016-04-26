@@ -9,7 +9,7 @@ import org.bukkit.command.CommandExecutor;
 public enum Command {
 	MUTE(new MuteCommand()),
 	REPLY(new ReplyCommand()),
-	UNMUTEW(new UnMuteCommand()),
+	UNMUTE(new UnMuteCommand()),
 	WHISPER(new WhisperCommand());
 
 	private CommandExecutor commandExecutor;
