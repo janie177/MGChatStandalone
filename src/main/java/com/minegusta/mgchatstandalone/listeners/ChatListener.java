@@ -49,7 +49,6 @@ public class ChatListener implements Listener {
 		if(MuteHandler.isMuted(p.getName()))
 		{
 			String command = e.getMessage().split(" ")[0].replace("/", "");
-			Bukkit.broadcastMessage(command);
 			for(String s : blockedCMDS)
 			{
 				if(s.equalsIgnoreCase(command))
