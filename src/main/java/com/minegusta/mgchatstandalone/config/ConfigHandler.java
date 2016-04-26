@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.minegusta.mgchatstandalone.util.Mute;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.Rank;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
