@@ -26,7 +26,7 @@ public class ChatListener implements Listener {
 		if(MuteHandler.isMuted(e.getPlayer().getName()))
 		{
 			e.getPlayer().sendMessage(ChatColor.YELLOW + "You are muted!");
-			e.getPlayer().sendMessage(ChatColor.YELLOW + "You can talk again in " + MuteHandler.getMute(e.getPlayer().getName()).getRemainingMinutes() + " minutes.");
+			e.getPlayer().sendMessage(ChatColor.YELLOW + "You can talk again in " + (MuteHandler.getMute(e.getPlayer().getName()).getRemainingMinutes() + 1) + " minutes.");
 			e.setCancelled(true);
 			return;
 		}
@@ -48,7 +48,8 @@ public class ChatListener implements Listener {
 		Player p = e.getPlayer();
 		if(MuteHandler.isMuted(p.getName()))
 		{
-			String command = e.getMessage().split(" ")[0];
+			String command = e.getMessage().split(" ")[0].replace("/", "");
+			Bukkit.broadcastMessage(command);
 			for(String s : blockedCMDS)
 			{
 				if(s.equalsIgnoreCase(command))

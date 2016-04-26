@@ -36,7 +36,7 @@ public class WhisperCommand implements CommandExecutor {
 		if(MuteHandler.isMuted(p.getName()))
 		{
 			p.sendMessage(ChatColor.YELLOW + "You are muted!");
-			p.sendMessage(ChatColor.YELLOW + "You can talk again in " + MuteHandler.getMute(p.getName()).getRemainingMinutes() + " minutes.");
+			p.sendMessage(ChatColor.YELLOW + "You can talk again in " + (MuteHandler.getMute(p.getName()).getRemainingMinutes() + 1) + " minutes.");
 			return true;
 		}
 
