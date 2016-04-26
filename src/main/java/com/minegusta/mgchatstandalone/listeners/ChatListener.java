@@ -2,6 +2,7 @@ package com.minegusta.mgchatstandalone.listeners;
 
 import com.minegusta.mgchatstandalone.util.Formatter;
 import com.minegusta.mgchatstandalone.util.MessageSender;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,7 +16,10 @@ public class ChatListener implements Listener {
 		if(e.isCancelled()) return;
 		String message = Formatter.formatMessage(e.getPlayer(), e.getMessage());
 
-		e.setMessage(message);
+		e.setCancelled(true);
+		e.setMessage("");
+
+		Bukkit.getOnlinePlayers().stream().forEach(p -> p.sendMessage(message));
 		MessageSender.sendMessageToServers(message);
 	}
 }

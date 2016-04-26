@@ -2,6 +2,7 @@ package com.minegusta.mgchatstandalone.config;
 
 import com.google.common.collect.Maps;
 import com.minegusta.mgchatstandalone.util.Rank;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -22,9 +23,9 @@ public class ConfigHandler {
 		ConfigurationSection s = conf.getConfigurationSection("ranks");
 		for(String rank : s.getKeys(false))
 		{
-			String display = s.getString(rank + "." + "display", "");
+			String display = s.getString(rank + "." + "prefix", "");
 			int weight = s.getInt(rank + "." + "weight", 0);
-			rankMap.put(conf.getString("ranks." + rank).toLowerCase(), new Rank(rank, display, weight));
+			rankMap.put(rank.toLowerCase(), new Rank(rank, display, weight));
 		}
 	}
 
