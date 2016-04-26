@@ -29,7 +29,7 @@ public class Formatter {
 			List<String> groups = user.getParentIdentifiers();
 			for(String s : groups)
 			{
-				rank = rank + ConfigHandler.getRank(s);
+				rank = rank + ConfigHandler.getDisplay(s);
 			}
 		}
 

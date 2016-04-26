@@ -23,7 +23,6 @@ public class MessageListener implements PluginMessageListener {
 		String subchannel = in.readUTF();
 
 		if (subchannel.equals("MGChat")) {
-
 			try {
 				short len = in.readShort();
 				byte[] msgbytes = new byte[len];

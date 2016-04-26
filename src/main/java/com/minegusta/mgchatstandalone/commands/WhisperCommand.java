@@ -39,7 +39,7 @@ public class WhisperCommand implements CommandExecutor {
 
 			MessageSender.sendPlayerMessage(p, name, msg);
 
-			p.sendMessage(ChatColor.GRAY + "[MSG] Me -> " + name + " : " + msg);
+			p.sendMessage(ChatColor.GRAY + "[MSG]Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
 
 
 		} catch (Exception ignored)
