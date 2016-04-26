@@ -1,6 +1,12 @@
 server-name: 'server'
 send-to: 'server1 server2'
 server-name-in-chat: 'server'
+mute-blocked-commands:
+ - kiss
+ - highfive
+ - hug
+ - me
+ - poke
 ranks:
   admin:
     prefix: '&4[A]'

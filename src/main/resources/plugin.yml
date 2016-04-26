@@ -7,7 +7,7 @@ commands:
   whisper:
     usage: /Whisper [player]
     description: Private message a player.
-    aliases: [msg, pm]
+    aliases: [msg, pm, tell, message]
     default: true
   mute:
     usage: /Mute [player] [duration(minutes)]

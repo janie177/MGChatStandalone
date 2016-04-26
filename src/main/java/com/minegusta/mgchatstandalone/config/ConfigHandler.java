@@ -1,5 +1,6 @@
 package com.minegusta.mgchatstandalone.config;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.minegusta.mgchatstandalone.util.Mute;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
@@ -8,12 +9,14 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 public class ConfigHandler {
 
 	public static String SERVER_NAME, SEND_TO, SERVER_NAME_IN_CHAT;
 	private static ConcurrentMap<String, Rank> rankMap = Maps.newConcurrentMap();
+	private static List<String> blockedCMDS = Lists.newArrayList();
 
 
 	public static void readConfig(FileConfiguration conf)
@@ -21,6 +24,7 @@ public class ConfigHandler {
 		SERVER_NAME = conf.getString("server-name", "server");
 		SEND_TO = conf.getString("send-to", "");
 		SERVER_NAME_IN_CHAT = conf.getString("server-name-in-chat", "");
+		blockedCMDS = conf.getStringList("mute-blocked-commands");
 
 		ConfigurationSection s = conf.getConfigurationSection("ranks");
 		for(String rank : s.getKeys(false))
@@ -50,7 +54,7 @@ public class ConfigHandler {
 	public static void saveMutes(Plugin plugin)
 	{
 		ConfigurationSection s = plugin.getConfig().getConfigurationSection("mutes");
-		s.set("", null);
+		plugin.getConfig().set("mutes", null);
 
 		for(String name : MuteHandler.getMutes().keySet())
 		{
@@ -73,5 +77,10 @@ public class ConfigHandler {
 
 			MuteHandler.mute(name, duration, start);
 		}
+	}
+
+	public static List<String> getBlockedCMDS()
+	{
+		return blockedCMDS;
 	}
 }
