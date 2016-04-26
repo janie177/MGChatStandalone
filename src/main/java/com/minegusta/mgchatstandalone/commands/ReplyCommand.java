@@ -1,6 +1,9 @@
 package com.minegusta.mgchatstandalone.commands;
 
 import com.google.common.collect.Maps;
+import com.minegusta.mgchatstandalone.config.ConfigHandler;
+import com.minegusta.mgchatstandalone.main.Main;
+import com.minegusta.mgchatstandalone.util.MuteHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

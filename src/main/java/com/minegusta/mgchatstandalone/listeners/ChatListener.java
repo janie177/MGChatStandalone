@@ -1,6 +1,5 @@
 package com.minegusta.mgchatstandalone.listeners;
 
-import com.google.common.collect.Lists;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.util.Formatter;
 import com.minegusta.mgchatstandalone.util.MessageSender;

@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.minegusta.mgchatstandalone.util.Mute;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.Rank;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -53,18 +54,19 @@ public class ConfigHandler {
 
 	public static void saveMutes(Plugin plugin)
 	{
-		ConfigurationSection s = plugin.getConfig().getConfigurationSection("mutes");
-		plugin.getConfig().set("mutes", null);
+		FileConfiguration conf = plugin.getConfig();
+		conf.set("mutes", null);
 
 		for(String name : MuteHandler.getMutes().keySet())
 		{
 			if(MuteHandler.isMuted(name))
 			{
 				Mute mute = MuteHandler.getMute(name);
-				s.set(name + ".duration", mute.getDuration());
-				s.set(name + ".start", mute.getStart());
+				conf.set("mutes." + name + ".duration", mute.getDuration());
+				conf.set("mutes." + name + ".start", mute.getStart());
 			}
 		}
+		plugin.saveConfig();
 	}
 
 	public static void loadMutes(Plugin plugin)
