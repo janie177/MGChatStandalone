@@ -11,15 +11,9 @@ import java.util.List;
 
 public class Formatter {
 
-	public static String formatMessage(Player p, String message)
+	public static String formatMessage(Player p)
 	{
 		String result = "";
-		message = ChatColor.translateAlternateColorCodes('&', message);
-
-		if(!p.hasPermission("minegusta.chatcolor"))
-		{
-			message = ChatColor.stripColor(message);
-		}
 
 		String displayName = p.getDisplayName();
 		String server = ConfigHandler.SERVER_NAME_IN_CHAT;
@@ -43,7 +37,7 @@ public class Formatter {
 			}
 		}
 
-		result = server + "&f" + rank + "&f" + displayName + "&7: " + message;
+		result = server + "&f" + rank + "&f" + displayName + "&7: ";
 
 
 		return ChatColor.translateAlternateColorCodes('&', result);

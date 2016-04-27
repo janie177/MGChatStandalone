@@ -38,7 +38,7 @@ public class MessageListener implements PluginMessageListener {
 
 				for (String s : servers) {
 					if (s.equalsIgnoreCase(ConfigHandler.SERVER_NAME)) {
-						Bukkit.getOnlinePlayers().stream().forEach(p -> p.sendMessage(receivedMessage));
+						Bukkit.broadcastMessage(receivedMessage);
 						break;
 					}
 				}

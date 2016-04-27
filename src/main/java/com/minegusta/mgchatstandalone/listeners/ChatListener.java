@@ -4,7 +4,6 @@ import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.util.Formatter;
 import com.minegusta.mgchatstandalone.util.MessageSender;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,13 +29,22 @@ public class ChatListener implements Listener {
 			return;
 		}
 
-		String message = Formatter.formatMessage(e.getPlayer(), e.getMessage());
+		String message = e.getMessage();
+		Player p = e.getPlayer();
 
-		e.setCancelled(true);
-		e.setMessage("");
+		message = ChatColor.translateAlternateColorCodes('&', message);
 
-		Bukkit.getOnlinePlayers().stream().forEach(p -> p.sendMessage(message));
-		MessageSender.sendMessageToServers(message, e.getPlayer().getName());
+		if(!p.hasPermission("minegusta.chatcolor"))
+		{
+			message = ChatColor.stripColor(message);
+		}
+
+		e.setMessage(message);
+
+		String format = Formatter.formatMessage(p);
+		e.setFormat(format + e.getMessage());
+
+		MessageSender.sendMessageToServers(format + message, e.getPlayer().getName());
 	}
 
 	private static final List<String> blockedCMDS = ConfigHandler.getBlockedCMDS();

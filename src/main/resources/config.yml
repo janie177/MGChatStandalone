@@ -1,23 +1,35 @@
-server-name: 'server'
-send-to: 'server1 server2'
-server-name-in-chat: 'server'
+server-name: hub
+send-to: plots
+server-name-in-chat: '&e[Hub]'
 mute-blocked-commands:
- - kiss
- - highfive
- - hug
- - me
- - poke
+- kiss
+- highfive
+- hug
+- me
+- poke
 ranks:
-  admin:
-    prefix: '&4[A]'
-    weight: '10'
-  moderator:
-    prefix: '&3[M]'
-    weight: '9'
   donor:
     prefix: '&6[&a%amount%&6]'
     weight: '1'
+  owner:
+    prefix: '&e[O]'
+    weight: '100'
+  builder:
+    prefix: '&2[B]'
+    weight: '95'
+  admin:
+    prefix: '&4[A]'
+    weight: '99'
+  moderator:
+    prefix: '&3[M]'
+    weight: '98'
+  trusted:
+    prefix: '&9[T]'
+    weight: '97'
+  default:
+    prefix: '&7[-]'
+    weight: '96'
 mutes:
-  example:
-    duration: 50000
-    start: 123989934
+  maus:
+    duration: 9000300000
+    start: 1461654870999
