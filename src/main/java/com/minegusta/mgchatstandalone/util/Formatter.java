@@ -7,13 +7,14 @@ import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Formatter {
 
 	public static String formatMessage(Player p)
 	{
-		String result = "";
+		String result = ConfigHandler.FORMAT;
 
 		String displayName = p.getDisplayName();
 		String server = ConfigHandler.SERVER_NAME_IN_CHAT;
@@ -37,7 +38,7 @@ public class Formatter {
 			}
 		}
 
-		result = server + "&f" + rank + "&7" + displayName + "&7:&f ";
+		result = result.replace("%player%", displayName).replace("%server%", server).replace("%rank%", rank).replace("%time%", LocalDateTime.now().toString());
 
 
 		return ChatColor.translateAlternateColorCodes('&', result);

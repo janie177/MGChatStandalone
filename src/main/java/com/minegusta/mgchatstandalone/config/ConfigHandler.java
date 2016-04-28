@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.minegusta.mgchatstandalone.util.Mute;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.Rank;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -14,7 +15,7 @@ import java.util.concurrent.ConcurrentMap;
 
 public class ConfigHandler {
 
-	public static String SERVER_NAME, SEND_TO, SERVER_NAME_IN_CHAT;
+	public static String SERVER_NAME, SEND_TO, SERVER_NAME_IN_CHAT, FORMAT;
 	private static ConcurrentMap<String, Rank> rankMap = Maps.newConcurrentMap();
 	private static List<String> blockedCMDS = Lists.newArrayList();
 
@@ -25,6 +26,7 @@ public class ConfigHandler {
 		SEND_TO = conf.getString("send-to", "");
 		SERVER_NAME_IN_CHAT = conf.getString("server-name-in-chat", "");
 		blockedCMDS = conf.getStringList("mute-blocked-commands");
+		FORMAT = ChatColor.translateAlternateColorCodes('&', conf.getString("format", "&f%server%&f%rank%&7%player%&7: &f%message%"));
 
 		ConfigurationSection s = conf.getConfigurationSection("ranks");
 		for(String rank : s.getKeys(false))
