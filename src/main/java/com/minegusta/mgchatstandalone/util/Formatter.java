@@ -8,6 +8,7 @@ import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Formatter {
@@ -38,7 +39,7 @@ public class Formatter {
 			}
 		}
 
-		result = result.replace("%player%", displayName).replace("%server%", server).replace("%rank%", rank).replace("%time%", LocalDateTime.now().toString());
+		result = result.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().toString());
 
 
 		return ChatColor.translateAlternateColorCodes('&', result);
