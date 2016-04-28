@@ -39,7 +39,7 @@ public class Formatter {
 			}
 		}
 
-		result = result.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().toString());
+		result = result.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute());
 
 
 		return ChatColor.translateAlternateColorCodes('&', result);
