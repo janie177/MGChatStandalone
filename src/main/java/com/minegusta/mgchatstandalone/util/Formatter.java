@@ -37,7 +37,7 @@ public class Formatter {
 			}
 		}
 
-		result = server + "&f" + rank + "&f" + displayName + "&7: ";
+		result = server + "&f" + rank + "&7" + displayName + "&7:&f ";
 
 
 		return ChatColor.translateAlternateColorCodes('&', result);
