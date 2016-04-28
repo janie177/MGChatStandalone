@@ -47,7 +47,7 @@ public class MessageSender {
 		{
 			out.writeUTF("Message");
 			out.writeUTF(player);
-			out.writeUTF(ChatColor.GRAY + "[MSG]" + ChatColor.GOLD + from.getName() + ChatColor.GRAY + " -> Me: " + message);
+			out.writeUTF(ChatColor.GRAY + "[MSG] " + ChatColor.GOLD + from.getName() + ChatColor.GRAY + " -> Me: " + message);
 		}
 		catch (Exception ignored){}
 

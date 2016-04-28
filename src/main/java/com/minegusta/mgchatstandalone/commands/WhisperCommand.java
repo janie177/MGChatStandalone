@@ -56,7 +56,7 @@ public class WhisperCommand implements CommandExecutor {
 			ReplyCommand.setReply(p.getName(), name);
 			ReplyCommand.setReply(name, p.getName());
 
-			p.sendMessage(ChatColor.GRAY + "[MSG]Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
+			p.sendMessage(ChatColor.GRAY + "[MSG] Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
 
 
 		} catch (Exception ignored)
