@@ -1,5 +1,6 @@
 package com.minegusta.mgchatstandalone.main;
 
+import com.google.common.collect.Lists;
 import com.minegusta.mgchatstandalone.commands.FactionsChatCommand;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.listeners.FactionsChatListener;
@@ -7,6 +8,7 @@ import com.minegusta.mgchatstandalone.listeners.MessageListener;
 import com.minegusta.mgchatstandalone.task.SaveTask;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 

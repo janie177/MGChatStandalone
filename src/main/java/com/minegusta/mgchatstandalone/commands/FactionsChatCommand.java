@@ -50,7 +50,7 @@ public class FactionsChatCommand implements CommandExecutor {
 		fChatMap.put(p.getName(), chat);
 		if(chat)
 		{
-			p.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.LIGHT_PURPLE + "Factions Chat Enabled.");
+			p.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.GREEN + "Factions Chat Enabled.");
 		} else {
 			p.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.RED + "Factions Chat Disabled.");
 		}
