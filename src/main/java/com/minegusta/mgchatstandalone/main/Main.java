@@ -5,6 +5,7 @@ import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.listeners.FactionsChatListener;
 import com.minegusta.mgchatstandalone.listeners.MessageListener;
 import com.minegusta.mgchatstandalone.task.SaveTask;
+import com.minegusta.mgchatstandalone.util.MuteHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +21,8 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 
 		ConfigHandler.readConfig(getPlugin().getConfig());
+
+		MuteHandler.createOrLoadMuteFile(getPlugin());
 
 		for (Command c : Command.values()) {
 			Bukkit.getPluginCommand(c.name().toLowerCase()).setExecutor(c.getCommandClass());
@@ -45,7 +48,7 @@ public class Main extends JavaPlugin {
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageListener());
 
 		//Load the mutes
-		ConfigHandler.loadMutes(getPlugin());
+		MuteHandler.loadMutes();
 
 		//Start the savetask
 		SaveTask.start();
@@ -54,7 +57,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable()
 	{
-		ConfigHandler.saveMutes(getPlugin());
+		MuteHandler.saveMutes();
 		SaveTask.stop();
 	}
 

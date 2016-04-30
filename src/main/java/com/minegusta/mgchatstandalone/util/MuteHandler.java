@@ -1,10 +1,42 @@
 package com.minegusta.mgchatstandalone.util;
 
 import com.google.common.collect.Maps;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
+import java.io.File;
 import java.util.concurrent.ConcurrentMap;
 
 public class MuteHandler {
+
+	static File file;
+	static FileConfiguration conf;
+
+	public static void createOrLoadMuteFile(Plugin p) {
+		try {
+			file = new File(p.getDataFolder(), "mutes.yml");
+
+			if (!file.exists()) {
+				p.saveResource("mutes.yml", false);
+				Bukkit.getLogger().info("Successfully created " + file.getName() + ".");
+			}
+			conf = YamlConfiguration.loadConfiguration(file);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void save() {
+		try {
+			conf.save(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static ConcurrentMap<String, Mute> muteMap = Maps.newConcurrentMap();
 
@@ -44,8 +76,31 @@ public class MuteHandler {
 		if(muteMap.containsKey(name.toLowerCase())) muteMap.remove(name.toLowerCase());
 	}
 
-	public static ConcurrentMap<String, Mute> getMutes()
+	public static void saveMutes()
 	{
-		return muteMap;
+		conf.set("mutes", null);
+
+		for(String name : muteMap.keySet())
+		{
+			if(MuteHandler.isMuted(name))
+			{
+				Mute mute = MuteHandler.getMute(name);
+				conf.set("mutes." + name + ".duration", mute.getDuration());
+				conf.set("mutes." + name + ".start", mute.getStart());
+			}
+		}
+		save();
+	}
+
+	public static void loadMutes()
+	{
+		ConfigurationSection s = conf.getConfigurationSection("mutes");
+		for(String name : s.getKeys(false))
+		{
+			long duration = s.getLong(name + ".duration", 3);
+			long start = s.getLong(name + ".start", 5);
+
+			MuteHandler.mute(name, duration, start);
+		}
 	}
 }

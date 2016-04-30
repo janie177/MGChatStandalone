@@ -54,35 +54,6 @@ public class ConfigHandler {
 		return "";
 	}
 
-	public static void saveMutes(Plugin plugin)
-	{
-		FileConfiguration conf = plugin.getConfig();
-		conf.set("mutes", null);
-
-		for(String name : MuteHandler.getMutes().keySet())
-		{
-			if(MuteHandler.isMuted(name))
-			{
-				Mute mute = MuteHandler.getMute(name);
-				conf.set("mutes." + name + ".duration", mute.getDuration());
-				conf.set("mutes." + name + ".start", mute.getStart());
-			}
-		}
-		plugin.saveConfig();
-	}
-
-	public static void loadMutes(Plugin plugin)
-	{
-		ConfigurationSection s = plugin.getConfig().getConfigurationSection("mutes");
-		for(String name : s.getKeys(false))
-		{
-			long duration = s.getLong(name + ".duration", 3);
-			long start = s.getLong(name + ".start", 5);
-
-			MuteHandler.mute(name, duration, start);
-		}
-	}
-
 	public static List<String> getBlockedCMDS()
 	{
 		return blockedCMDS;

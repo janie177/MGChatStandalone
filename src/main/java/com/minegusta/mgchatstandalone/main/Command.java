@@ -1,15 +1,13 @@
 package com.minegusta.mgchatstandalone.main;
 
-import com.minegusta.mgchatstandalone.commands.MuteCommand;
-import com.minegusta.mgchatstandalone.commands.ReplyCommand;
-import com.minegusta.mgchatstandalone.commands.UnMuteCommand;
-import com.minegusta.mgchatstandalone.commands.WhisperCommand;
+import com.minegusta.mgchatstandalone.commands.*;
 import org.bukkit.command.CommandExecutor;
 
 public enum Command {
 	MUTE(new MuteCommand()),
 	REPLY(new ReplyCommand()),
 	UNMUTE(new UnMuteCommand()),
+	CRELOAD(new ReloadCommand()),
 	WHISPER(new WhisperCommand());
 
 	private CommandExecutor commandExecutor;

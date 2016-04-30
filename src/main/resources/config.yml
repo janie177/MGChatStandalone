@@ -31,7 +31,3 @@ ranks:
   default:
     prefix: '&7[-]'
     weight: '96'
-mutes:
-  maus:
-    duration: 9000300000
-    start: 1461654870999

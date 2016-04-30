@@ -26,4 +26,8 @@ commands:
     usage: /FC [message]
     aliases: [factionschat, factionchat, fchat, factionc, allychat, neutralchat, nc, ac]
     description: Toggle Faction Chat mode. Only works when Factions is enabled.
-    default: true
+    default: op
+  creload:
+    usage: /Creload
+    description: Reload the chat plugin.
+    default: op
