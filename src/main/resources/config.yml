@@ -1,7 +1,8 @@
 server-name: hub
 send-to: plots
 server-name-in-chat: '&e[Hub]'
-format: '&f$server$&f$rank$&7$player$&7: &f'
+local-format: '&f$server$&f$rank$&7$player$&7: &f'
+global-format: '&f$server$&f$rank$&7$player$&7: &f'
 mute-blocked-commands:
 - kiss
 - highfive

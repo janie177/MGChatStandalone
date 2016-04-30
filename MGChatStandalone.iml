@@ -28,5 +28,32 @@
     <orderEntry type="library" name="Maven: net.gravitydevelopment.updater:updater:2.3" level="project" />
     <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.4-R2.0" level="project" />
     <orderEntry type="library" name="Maven: com.mojang:AccountsClient:unspecified" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: factions:factions:2.7">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/depends/Factions.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: MGRacesRedone:MGRacesRedone:2.7">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/depends/MGRacesRedone.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: MassiveCore:MassiveCore:2.7">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/depends/MassiveCore.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

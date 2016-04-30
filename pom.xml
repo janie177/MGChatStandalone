@@ -35,6 +35,27 @@
             <artifactId>PermissionsEx</artifactId>
             <version>1.23.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>factions</groupId>
+            <artifactId>factions</artifactId>
+            <version>2.7</version>
+            <systemPath>${basedir}/depends/Factions.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>MGRacesRedone</groupId>
+            <artifactId>MGRacesRedone</artifactId>
+            <version>2.7</version>
+            <systemPath>${basedir}/depends/MGRacesRedone.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>MassiveCore</groupId>
+            <artifactId>MassiveCore</artifactId>
+            <version>2.7</version>
+            <systemPath>${basedir}/depends/MassiveCore.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,7 +1,11 @@
 package com.minegusta.mgchatstandalone.util;
 
+import com.massivecraft.factions.Factions;
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MPlayer;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
+import com.minegusta.mgracesredone.main.Races;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
@@ -13,9 +17,9 @@ import java.util.List;
 
 public class Formatter {
 
-	public static String formatMessage(Player p)
+	public static String[] formatMessage(Player p)
 	{
-		String result = ConfigHandler.FORMAT;
+		String[] result = new String[2];
 
 		String displayName = p.getDisplayName();
 		String server = ConfigHandler.SERVER_NAME_IN_CHAT;
@@ -39,9 +43,24 @@ public class Formatter {
 			}
 		}
 
-		result = result.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute());
+		result[0] = ChatColor.translateAlternateColorCodes('&', ConfigHandler.LOCAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
+		result[1] = ChatColor.translateAlternateColorCodes('&', ConfigHandler.GLOBAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
 
+		if(Main.RACES_ENABLED)
+		{
+			result[0] = result[0].replace("$race$", Races.getRace(p).getTag());
+			result[1] = result[1].replace("$race$", Races.getRace(p).getTag());
+		}
+		if(Main.FACTIONS_ENABLED)
+		{
+			MPlayer uplayer = MPlayer.get(p);
+			Faction faction = uplayer.getFaction();
+			String factionName = faction.getName();
 
-		return ChatColor.translateAlternateColorCodes('&', result);
+			result[0] = result[0].replace("$faction$", factionName);
+			result[1] = result[1].replace("$faction$", factionName);
+		}
+
+		return result;
 	}
 }

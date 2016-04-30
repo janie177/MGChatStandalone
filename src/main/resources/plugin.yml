@@ -1,7 +1,7 @@
 name: MGChatStandalone
 version: 0.1.0.0
 author: janie177
-softdepend: [PermissionsEx]
+softdepend: [PermissionsEx, Factions, MGRacesRedone]
 main: com.minegusta.mgchatstandalone.main.Main
 commands:
   whisper:
@@ -21,4 +21,9 @@ commands:
     usage: /Reply [message]
     aliases: [r]
     description: Send a message to the player that last whispered you.
+    default: true
+  fc:
+    usage: /FC [message]
+    aliases: [factionschat, factionchat, fchat, factionc, allychat, neutralchat, nc, ac]
+    description: Toggle Faction Chat mode. Only works when Factions is enabled.
     default: true

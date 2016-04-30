@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentMap;
 
 public class ConfigHandler {
 
-	public static String SERVER_NAME, SEND_TO, SERVER_NAME_IN_CHAT, FORMAT;
+	public static String SERVER_NAME, SEND_TO, SERVER_NAME_IN_CHAT, LOCAL_FORMAT, GLOBAL_FORMAT;
 	private static ConcurrentMap<String, Rank> rankMap = Maps.newConcurrentMap();
 	private static List<String> blockedCMDS = Lists.newArrayList();
 
@@ -26,7 +26,8 @@ public class ConfigHandler {
 		SEND_TO = conf.getString("send-to", "");
 		SERVER_NAME_IN_CHAT = conf.getString("server-name-in-chat", "");
 		blockedCMDS = conf.getStringList("mute-blocked-commands");
-		FORMAT = ChatColor.translateAlternateColorCodes('&', conf.getString("format", "&f%server%&f%rank%&7%player%&7: &f%message%"));
+		LOCAL_FORMAT = ChatColor.translateAlternateColorCodes('&', conf.getString("local-format", "&f%server%&f%rank%&7%player%&7: &f%message%"));
+		GLOBAL_FORMAT = ChatColor.translateAlternateColorCodes('&', conf.getString("global-format", "&f%server%&f%rank%&7%player%&7: &f%message%"));
 
 		ConfigurationSection s = conf.getConfigurationSection("ranks");
 		for(String rank : s.getKeys(false))

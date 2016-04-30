@@ -43,10 +43,10 @@ public class ChatListener implements Listener {
 
 		e.setMessage(message);
 
-		String format = Formatter.formatMessage(p);
-		e.setFormat(format + e.getMessage());
+		String[] format = Formatter.formatMessage(p);
+		e.setFormat(format[0] + e.getMessage());
 
-		MessageSender.sendMessageToServers(format + message, e.getPlayer().getName());
+		MessageSender.sendMessageToServers(format[1] + message, e.getPlayer().getName());
 	}
 
 	private static final List<String> blockedCMDS = ConfigHandler.getBlockedCMDS();
