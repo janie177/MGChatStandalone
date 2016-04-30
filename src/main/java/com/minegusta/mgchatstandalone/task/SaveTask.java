@@ -13,7 +13,7 @@ public class SaveTask {
 		ID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
 			@Override
 			public void run() {
-				MuteHandler.saveMutes(Main.getPlugin());
+				MuteHandler.saveMutes();
 			}
 		}, 20 * 60 * 5, 20 * 60 * 5);
 	}
