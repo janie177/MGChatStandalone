@@ -95,6 +95,12 @@ public class MuteHandler {
 	public static void loadMutes()
 	{
 		muteMap.clear();
+
+		if(conf.get("mutes") == null)
+		{
+			return;
+		}
+
 		ConfigurationSection s = conf.getConfigurationSection("mutes");
 		for(String name : s.getKeys(false))
 		{
