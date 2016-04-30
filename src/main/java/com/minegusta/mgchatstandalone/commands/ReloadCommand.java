@@ -16,6 +16,7 @@ public class ReloadCommand implements CommandExecutor {
 			MuteHandler.saveMutes();
 			MuteHandler.createOrLoadMuteFile(Main.getPlugin());
 			MuteHandler.loadMutes();
+			Main.getPlugin().reloadConfig();
 			ConfigHandler.readConfig(Main.getPlugin().getConfig());
 			sender.sendMessage(ChatColor.GREEN + "Reloaded MGChat Standalone");
 		}
