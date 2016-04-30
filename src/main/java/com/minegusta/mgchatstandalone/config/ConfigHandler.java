@@ -22,6 +22,7 @@ public class ConfigHandler {
 
 	public static void readConfig(FileConfiguration conf)
 	{
+		rankMap.clear();
 		SERVER_NAME = conf.getString("server-name", "server");
 		SEND_TO = conf.getString("send-to", "");
 		SERVER_NAME_IN_CHAT = conf.getString("server-name-in-chat", "");
