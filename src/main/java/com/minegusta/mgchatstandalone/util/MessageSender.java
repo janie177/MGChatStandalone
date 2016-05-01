@@ -30,6 +30,7 @@ public class MessageSender {
 			msgout.writeUTF(message);
 			msgout.writeUTF(ConfigHandler.SEND_TO);
 			msgout.writeUTF(playerName);
+			msgout.writeLong(System.currentTimeMillis());
 
 			out.writeShort(msgbytes.toByteArray().length);
 			out.write(msgbytes.toByteArray());

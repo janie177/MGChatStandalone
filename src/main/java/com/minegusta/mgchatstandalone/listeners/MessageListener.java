@@ -33,6 +33,10 @@ public class MessageListener implements PluginMessageListener {
 				String receivedMessage = ChatColor.translateAlternateColorCodes('&', msgin.readUTF());
 				String[] servers = msgin.readUTF().split(" ");
 				String playerName = msgin.readUTF();
+				long time = msgin.readLong() + 5000;
+
+				//Return if message is older than 5 seconds.
+				if(time < System.currentTimeMillis()) return;
 
 				if(MuteHandler.isMuted(playerName)) return;
 
