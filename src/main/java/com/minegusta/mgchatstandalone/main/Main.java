@@ -7,6 +7,7 @@ import com.minegusta.mgchatstandalone.listeners.FactionsChatListener;
 import com.minegusta.mgchatstandalone.listeners.MessageListener;
 import com.minegusta.mgchatstandalone.task.SaveTask;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
+import com.minegusta.mgchatstandalone.util.PlayersUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.Plugin;
@@ -48,6 +49,7 @@ public class Main extends JavaPlugin {
 
 		this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageListener());
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayersUtil());
 
 		//Load the mutes
 		MuteHandler.loadMutes();

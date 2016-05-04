@@ -29,7 +29,7 @@ public class ChatListener implements Listener {
 			return;
 		}
 
-		e.setMessage(e.getMessage().replace("%", ""));
+		e.setMessage(e.getMessage().replace("%", "٪"));
 
 		String message = e.getMessage();
 		Player p = e.getPlayer();

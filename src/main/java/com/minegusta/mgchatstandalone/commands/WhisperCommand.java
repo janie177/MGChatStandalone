@@ -1,12 +1,17 @@
 package com.minegusta.mgchatstandalone.commands;
 
+import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgchatstandalone.util.MessageSender;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
+import com.minegusta.mgchatstandalone.util.PlayersUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class WhisperCommand implements CommandExecutor {
 	@Override
@@ -46,10 +51,33 @@ public class WhisperCommand implements CommandExecutor {
 
 			String msg = "";
 
+			PlayersUtil.updatePlayers();
+			List<String> players = PlayersUtil.getPlayers();
+
+			boolean send = false;
+
+			for(String playerName : players)
+			{
+				if(playerName.toLowerCase().equalsIgnoreCase(name.toLowerCase()) || playerName.toLowerCase().startsWith(name.toLowerCase()))
+				{
+					name = playerName;
+					send = true;
+					break;
+				}
+			}
+
+			if(!send)
+			{
+				p.sendMessage(ChatColor.RED + "[MSG] " + ChatColor.GRAY + "Player '" + name + "' could not be found.");
+				return true;
+			}
+
+
 			for(int i = 1; i < args.length; i++)
 			{
 				msg = msg + " "  + args[i];
 			}
+
 
 			MessageSender.sendPlayerMessage(p, name, msg);
 
