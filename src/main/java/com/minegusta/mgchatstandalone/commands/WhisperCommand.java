@@ -1,11 +1,9 @@
 package com.minegusta.mgchatstandalone.commands;
 
-import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgchatstandalone.util.MessageSender;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.PlayersUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,7 +49,6 @@ public class WhisperCommand implements CommandExecutor {
 
 			String msg = "";
 
-			PlayersUtil.updatePlayers();
 			List<String> players = PlayersUtil.getPlayers();
 
 			boolean send = false;

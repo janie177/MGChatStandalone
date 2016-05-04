@@ -20,6 +20,7 @@ public class PlayersUtil implements PluginMessageListener {
 
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+
 		if (!channel.equals("BungeeCord")) {
 			return;
 		}
@@ -34,9 +35,13 @@ public class PlayersUtil implements PluginMessageListener {
 			} catch (Exception ignored) {
 			}
 		}
+		else if(subchannel.equals("PlayerListUpdate"))
+		{
+			updatePlayers();
+		}
 	}
 
-	public static synchronized void updatePlayers()
+	public static void updatePlayers()
 	{
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(b);
@@ -52,9 +57,8 @@ public class PlayersUtil implements PluginMessageListener {
 		if(p.isPresent()) p.get().sendPluginMessage(Main.getPlugin(), "BungeeCord", b.toByteArray());
 	}
 
-	public static synchronized List<String> getPlayers()
+	public static List<String> getPlayers()
 	{
-		updatePlayers();
 		return players;
 	}
 }
