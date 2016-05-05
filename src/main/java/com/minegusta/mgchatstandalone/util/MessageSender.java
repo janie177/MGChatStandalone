@@ -40,20 +40,6 @@ public class MessageSender {
 		} catch (Exception ignored) {}
 	}
 
-	public static void sendUpdatePlayerList()
-	{
-		try {
-			ByteArrayDataOutput out = ByteStreams.newDataOutput();
-			out.writeUTF("Forward");
-			out.writeUTF("ALL");
-			out.writeUTF("PlayerListUpdate");
-
-			Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
-			player.sendPluginMessage(Main.getPlugin(), "BungeeCord", out.toByteArray());
-
-		} catch (Exception ignored) {}
-	}
-
 	public static void sendPlayerMessage(Player from, String player, String message)
 	{
 		ByteArrayOutputStream b = new ByteArrayOutputStream();

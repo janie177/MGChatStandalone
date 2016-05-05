@@ -1,8 +1,10 @@
 package com.minegusta.mgchatstandalone.commands;
 
+import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgchatstandalone.util.MessageSender;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.PlayersUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,51 +45,56 @@ public class WhisperCommand implements CommandExecutor {
 			return true;
 		}
 
-		try
-		{
-			String name = args[0];
+		PlayersUtil.updatePlayers();
 
-			String msg = "";
-
-			List<String> players = PlayersUtil.getPlayers();
-
-			boolean send = false;
-
-			for(String playerName : players)
-			{
-				if(playerName.toLowerCase().equalsIgnoreCase(name.toLowerCase()) || playerName.toLowerCase().startsWith(name.toLowerCase()))
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
+			@Override
+			public void run() {
+				try
 				{
-					name = playerName;
-					send = true;
-					break;
+					String name = args[0];
+
+					String msg = "";
+
+					List<String> players = PlayersUtil.getPlayers();
+
+					boolean send = false;
+
+					for(String playerName : players)
+					{
+						if(playerName.toLowerCase().equalsIgnoreCase(name.toLowerCase()) || playerName.toLowerCase().startsWith(name.toLowerCase()))
+						{
+							name = playerName;
+							send = true;
+							break;
+						}
+					}
+
+					if(!send)
+					{
+						p.sendMessage(ChatColor.RED + "[MSG] " + ChatColor.GRAY + "Player '" + name + "' could not be found.");
+					}
+					else {
+
+						for (int i = 1; i < args.length; i++) {
+							msg = msg + " " + args[i];
+						}
+
+
+						MessageSender.sendPlayerMessage(p, name, msg);
+
+						ReplyCommand.setReply(p.getName(), name);
+						ReplyCommand.setReply(name, p.getName());
+
+						p.sendMessage(ChatColor.GRAY + "[MSG] Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
+
+					}
+				} catch (Exception ignored)
+				{
+					s.sendMessage(ChatColor.GRAY + "That person could not be found.");
 				}
 			}
-
-			if(!send)
-			{
-				p.sendMessage(ChatColor.RED + "[MSG] " + ChatColor.GRAY + "Player '" + name + "' could not be found.");
-				return true;
-			}
-
-
-			for(int i = 1; i < args.length; i++)
-			{
-				msg = msg + " "  + args[i];
-			}
-
-
-			MessageSender.sendPlayerMessage(p, name, msg);
-
-			ReplyCommand.setReply(p.getName(), name);
-			ReplyCommand.setReply(name, p.getName());
-
-			p.sendMessage(ChatColor.GRAY + "[MSG] Me -> " + ChatColor.GOLD + name + ChatColor.GRAY + ": " + msg);
-
-
-		} catch (Exception ignored)
-		{
-			s.sendMessage(ChatColor.GRAY + "That person could not be found.");
-		}
+		}, 10);
 
 		return true;
 	}

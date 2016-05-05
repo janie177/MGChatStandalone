@@ -1,5 +1,6 @@
 package com.minegusta.mgchatstandalone.util;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
@@ -12,7 +13,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class PlayersUtil implements PluginMessageListener {
 
@@ -29,13 +29,13 @@ public class PlayersUtil implements PluginMessageListener {
 
 		if (subchannel.equals("PlayerList")) {
 			try {
-				String server = in.readUTF(); // The name of the server you got the player list of, as given in args.
+				String server = in.readUTF();
 				String[] playerList = in.readUTF().split(", ");
 				players = Arrays.asList(playerList);
 			} catch (Exception ignored) {
 			}
 		}
-		else if(subchannel.equals("PlayerListUpdate"))
+		else if(subchannel.equals("PLU"))
 		{
 			updatePlayers();
 		}
@@ -49,12 +49,12 @@ public class PlayersUtil implements PluginMessageListener {
 		{
 			out.writeUTF("PlayerList");
 			out.writeUTF("ALL");
+
+			Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+			p.sendPluginMessage(Main.getPlugin(), "BungeeCord", b.toByteArray());
 		}
 		catch (Exception ignored){
 		}
-
-		Optional<? extends Player> p = Bukkit.getOnlinePlayers().stream().findAny();
-		if(p.isPresent()) p.get().sendPluginMessage(Main.getPlugin(), "BungeeCord", b.toByteArray());
 	}
 
 	public static List<String> getPlayers()
