@@ -39,7 +39,7 @@ public class Main extends JavaPlugin {
 		//Pex
 		PEX_ENABLED = Bukkit.getPluginManager().isPluginEnabled("PermissionsEx");
 		FACTIONS_ENABLED = Bukkit.getPluginManager().isPluginEnabled("Factions");
-		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("MGRaces");
+		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("MGRacesRedone");
 
 		if(FACTIONS_ENABLED)
 		{
