@@ -26,7 +26,7 @@ public class FactionsChatListener implements Listener {
 			MPlayer uplayer = MPlayer.get(p);
 			Faction faction = uplayer.getFaction();
 
-			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.GRAY + uplayer.getRole().getPrefix() + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
 			Bukkit.getLogger().info(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
 		}
 	}
