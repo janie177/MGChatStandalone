@@ -20,11 +20,12 @@ public class FactionsChatCommand implements CommandExecutor {
 		Player p = (Player) sender;
 
 		if (sender.hasPermission("minegusta.factionchat")) {
-			if(getFChatType(p) == 1)
+			int i = getFChatType(p);
+			if(i == 1)
 			{
 				setFChat(p, 2);
 			}
-			else if (getFChatType(p) > 1) {
+			else if (i > 1) {
 				setFChat(p, 0);
 			}
 			else
@@ -64,7 +65,7 @@ public class FactionsChatCommand implements CommandExecutor {
 		if(chat == 1) {
 			p.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.GREEN + "Factions Chat Enabled.");
 		} else if(chat > 1) {
-			p.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.GREEN + "Ally chat enabled.");
+			p.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.LIGHT_PURPLE + "Ally chat enabled.");
 		} else {
 			p.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.RED + "Factions Chat Disabled.");
 		}

@@ -35,9 +35,9 @@ public class FactionsChatListener implements Listener {
 		}
 		else if(FactionsChatCommand.getFChatType(p) > 1)
 		{
+			e.setCancelled(true);
 			for(String s : faction.getRelationWishes().keySet())
 			{
-				e.setCancelled(true);
 				Faction ally = FactionColl.get().getByName(s);
 				String message = e.getMessage();
 				Rel wish = faction.getRelationTo(ally);
@@ -45,9 +45,10 @@ public class FactionsChatListener implements Listener {
 				{
 					ally.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
 				}
-				faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
-				Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
 			}
+			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+			Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
+
 		}
 	}
 
