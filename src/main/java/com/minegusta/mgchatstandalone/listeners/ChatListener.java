@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChatListener implements Listener {
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onEvent(AsyncPlayerChatEvent e)
 	{
 		if(e.isCancelled()) return;
