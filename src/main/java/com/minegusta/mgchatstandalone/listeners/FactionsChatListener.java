@@ -1,6 +1,10 @@
 package com.minegusta.mgchatstandalone.listeners;
 
+import com.massivecraft.factions.Factions;
+import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.FactionColl;
+import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPlayer;
 import com.minegusta.mgchatstandalone.commands.FactionsChatCommand;
 import org.bukkit.Bukkit;
@@ -16,18 +20,34 @@ public class FactionsChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent e)
 	{
-		if(FactionsChatCommand.hasFChatEnabled(e.getPlayer()))
-		{
-			Player p = e.getPlayer();
+		if(e.isCancelled()) return;
+		Player p = e.getPlayer();
+		MPlayer uplayer = MPlayer.get(p);
+		Faction faction = uplayer.getFaction();
 
+		if(FactionsChatCommand.getFChatType(p) == 1)
+		{
 			e.setCancelled(true);
 			String message = e.getMessage();
 
-			MPlayer uplayer = MPlayer.get(p);
-			Faction faction = uplayer.getFaction();
-
-			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.GRAY + uplayer.getRole().getPrefix() + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
-			Bukkit.getLogger().info(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
+			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.GRAY + uplayer.getRole().getPrefix() + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.GREEN + message));
+			Bukkit.getLogger().info(ChatColor.DARK_GREEN + "[" + ChatColor.GREEN + "FC" + ChatColor.DARK_GREEN + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.GREEN + message);
+		}
+		else if(FactionsChatCommand.getFChatType(p) > 1)
+		{
+			for(String s : faction.getRelationWishes().keySet())
+			{
+				e.setCancelled(true);
+				Faction ally = FactionColl.get().getByName(s);
+				String message = e.getMessage();
+				Rel wish = faction.getRelationTo(ally);
+				if(wish != null && wish == Rel.ALLY)
+				{
+					ally.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+				}
+				faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+				Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
+			}
 		}
 	}
 
