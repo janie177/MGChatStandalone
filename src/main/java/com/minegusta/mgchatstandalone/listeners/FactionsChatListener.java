@@ -37,17 +37,17 @@ public class FactionsChatListener implements Listener {
 		{
 			e.setCancelled(true);
 			String message = e.getMessage();
-			for(String s : faction.getRelationWishes().keySet())
+			for(Faction ally : FactionColl.get().getAll())
 			{
-				Faction ally = FactionColl.get().getByName(s);
+				if(ally.getOnlinePlayers().isEmpty()) continue;
 				Rel wish = faction.getRelationTo(ally);
 				if(wish != null && wish == Rel.ALLY)
 				{
-					ally.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+					ally.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + faction.getName() + ChatColor.DARK_PURPLE + "]" + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
 				}
 			}
-			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
-			Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
+			faction.getOnlinePlayers().forEach(pl -> pl.sendMessage(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "]" + ChatColor.DARK_PURPLE + "[" + ChatColor.GREEN + faction.getName() + ChatColor.DARK_PURPLE + "]" + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message));
+			Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[" + ChatColor.LIGHT_PURPLE + "AC" + ChatColor.DARK_PURPLE + "] " + ChatColor.DARK_PURPLE + "[" + ChatColor.GREEN + faction.getName() + ChatColor.DARK_PURPLE + "]" + ChatColor.YELLOW + p.getDisplayName() + ChatColor.GRAY + ": " + ChatColor.LIGHT_PURPLE + message);
 		}
 	}
 
