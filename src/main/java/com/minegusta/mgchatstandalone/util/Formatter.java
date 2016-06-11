@@ -10,6 +10,7 @@ import com.minegusta.mgracesredone.main.Races;
 import net.md_5.bungee.api.chat.*;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
@@ -95,7 +96,7 @@ public class Formatter {
 		{
 			if(ChatFilter.isBlocked(ChatColor.stripColor(s)))
 			{
-				filteredMessage = filteredMessage.replace("s", ChatFilter.getReplacement());
+				filteredMessage = filteredMessage.replace(s, ChatFilter.getReplacement());
 			}
 		}
 
