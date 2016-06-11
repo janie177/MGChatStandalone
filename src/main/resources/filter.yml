@@ -37,7 +37,6 @@ filtered-words:
   - 'boobs'
   - 'penis'
   - 'vagina'
-  - ''
 
 replacement-words:
   - 'tellytubby'
