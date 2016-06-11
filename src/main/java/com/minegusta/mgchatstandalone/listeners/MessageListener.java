@@ -3,7 +3,9 @@ package com.minegusta.mgchatstandalone.listeners;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
+import com.minegusta.mgchatstandalone.util.JSonUtil;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -30,7 +32,9 @@ public class MessageListener implements PluginMessageListener {
 				in.readFully(msgbytes);
 				DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
 
-				String receivedMessage = ChatColor.translateAlternateColorCodes('&', msgin.readUTF());
+				String receivedMessage = msgin.readUTF();
+				final TextComponent component = JSonUtil.jsonToComponent(receivedMessage);
+
 				String[] servers = msgin.readUTF().split(" ");
 				String playerName = msgin.readUTF();
 				long time = msgin.readLong() + 5000;
@@ -42,10 +46,11 @@ public class MessageListener implements PluginMessageListener {
 
 				for (String s : servers) {
 					if (s.equalsIgnoreCase(ConfigHandler.SERVER_NAME)) {
-						Bukkit.broadcastMessage(receivedMessage);
+						Bukkit.getOnlinePlayers().forEach(pl -> pl.spigot().sendMessage(component));
 						break;
 					}
 				}
+
 			} catch (Exception ignored) {}
 		}
 	}

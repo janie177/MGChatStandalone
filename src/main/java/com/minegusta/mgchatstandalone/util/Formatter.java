@@ -1,29 +1,41 @@
+
 package com.minegusta.mgchatstandalone.util;
 
-import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgracesredone.main.Races;
+import net.md_5.bungee.api.chat.*;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 public class Formatter {
 
-	public static String[] formatMessage(Player p)
+	public static TextComponent[] formatMessage(Player p, String message)
 	{
-		String[] result = new String[2];
+		TextComponent[] result = new TextComponent[2];
 
 		String displayName = p.getDisplayName();
 		String server = ConfigHandler.SERVER_NAME_IN_CHAT;
 		String rank = "";
+
+		if(!displayName.equals(p.getName()))
+		{
+			rank = rank + ChatColor.YELLOW + "Real Name: " + ChatColor.GRAY + p.getName() + "\n";
+		}
+
+		rank = rank + displayName + ChatColor.WHITE + "'s Ranks: \n";
+
+		BaseComponent[] ranks;
+
 		if(Main.PEX_ENABLED){
 			PermissionUser user = PermissionsEx.getUser(p);
 			List<String> groups = user.getParentIdentifiers();
@@ -39,17 +51,21 @@ public class Formatter {
 
 					rankDisplay = ConfigHandler.getDisplay("donor").replace("%amount%", digit);
 				}
-				rank = rank + rankDisplay;
+				rank = rank + rankDisplay + ChatColor.GRAY + " " + s + " \n";
 			}
 		}
 
-		result[0] = ChatColor.translateAlternateColorCodes('&', ConfigHandler.LOCAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
-		result[1] = ChatColor.translateAlternateColorCodes('&', ConfigHandler.GLOBAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", rank).replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
+		ranks = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', rank));
+
+
+
+		String local = ChatColor.translateAlternateColorCodes('&', ConfigHandler.LOCAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", "").replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
+		String global = ChatColor.translateAlternateColorCodes('&', ConfigHandler.GLOBAL_FORMAT.replace("$player$", displayName).replace("$server$", server).replace("$rank$", "").replace("$time$", LocalTime.now().getHour() + ":" + LocalTime.now().getMinute()));
 
 		if(Main.RACES_ENABLED)
 		{
-			result[0] = result[0].replace("$race$", Races.getRace(p).getTag());
-			result[1] = result[1].replace("$race$", Races.getRace(p).getTag());
+			global = global.replace("$race$", Races.getRace(p).getTag());
+			local = local.replace("$race$", Races.getRace(p).getTag());
 		}
 		if(Main.FACTIONS_ENABLED)
 		{
@@ -57,9 +73,27 @@ public class Formatter {
 			Faction faction = uplayer.getFaction();
 			String factionName = faction.getName();
 
-			result[0] = result[0].replace("$faction$", factionName);
-			result[1] = result[1].replace("$faction$", factionName);
+			global = global.replace("$faction$", factionName);
+			local = local.replace("$faction$", factionName);
 		}
+
+		TextComponent localComponent = TextComponentUtil.stringToComp(local);
+		TextComponent globalComponent = TextComponentUtil.stringToComp(global);
+
+		globalComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ranks));
+		localComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ranks));
+
+		globalComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatinterface " + p.getName()));
+		localComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatinterface " + p.getName()));
+
+		for(BaseComponent component : TextComponent.fromLegacyText(message))
+		{
+			localComponent.addExtra(component);
+			globalComponent.addExtra(component);
+		}
+
+		result[0] = localComponent;
+		result[1] = globalComponent;
 
 		return result;
 	}

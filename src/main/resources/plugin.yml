@@ -31,3 +31,7 @@ commands:
     usage: /Creload
     description: Reload the chat plugin.
     default: op
+  chatinterface:
+    usage: /ChatInterface <Name>
+    description: Open a GUI for managing the chat for a player.
+    default: op

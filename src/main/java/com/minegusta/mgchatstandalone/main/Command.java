@@ -8,6 +8,7 @@ public enum Command {
 	REPLY(new ReplyCommand()),
 	UNMUTE(new UnMuteCommand()),
 	CRELOAD(new ReloadCommand()),
+	CHATINTERFACE(new InterfaceCommand()),
 	WHISPER(new WhisperCommand());
 
 	private CommandExecutor commandExecutor;
