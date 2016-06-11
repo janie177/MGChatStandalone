@@ -3,6 +3,7 @@ package com.minegusta.mgchatstandalone.util;
 
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgracesredone.main.Races;
@@ -21,7 +22,7 @@ public class Formatter {
 
 	public static TextComponent[] formatMessage(Player p, String message)
 	{
-		TextComponent[] result = new TextComponent[2];
+		TextComponent[] result = new TextComponent[4];
 
 		String displayName = p.getDisplayName();
 		String server = ConfigHandler.SERVER_NAME_IN_CHAT;
@@ -86,6 +87,24 @@ public class Formatter {
 		globalComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatinterface " + p.getName()));
 		localComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatinterface " + p.getName()));
 
+		TextComponent filteredGlobal = (TextComponent) globalComponent.duplicate();
+		TextComponent filteredLocal = (TextComponent) localComponent.duplicate();
+
+		String filteredMessage = message;
+		for(String s : message.split(" "))
+		{
+			if(ChatFilter.isBlocked(ChatColor.stripColor(s)))
+			{
+				filteredMessage = filteredMessage.replace("s", ChatFilter.getReplacement());
+			}
+		}
+
+		for(BaseComponent component : TextComponent.fromLegacyText(filteredMessage))
+		{
+			filteredGlobal.addExtra(component);
+			filteredLocal.addExtra(component);
+		}
+
 		for(BaseComponent component : TextComponent.fromLegacyText(message))
 		{
 			localComponent.addExtra(component);
@@ -94,6 +113,8 @@ public class Formatter {
 
 		result[0] = localComponent;
 		result[1] = globalComponent;
+		result[2] = filteredLocal;
+		result[3] = filteredGlobal;
 
 		return result;
 	}

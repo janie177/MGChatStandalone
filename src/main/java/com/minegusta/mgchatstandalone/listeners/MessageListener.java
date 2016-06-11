@@ -34,7 +34,9 @@ public class MessageListener implements PluginMessageListener {
 				DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
 
 				String receivedMessage = msgin.readUTF();
+				String filtered = msgin.readUTF();
 				final TextComponent component = JSonUtil.jsonToComponent(receivedMessage);
+				final TextComponent filteredComponent = JSonUtil.jsonToComponent(filtered);
 
 				String[] servers = msgin.readUTF().split(" ");
 				String playerName = msgin.readUTF();
@@ -45,28 +47,13 @@ public class MessageListener implements PluginMessageListener {
 
 				if(MuteHandler.isMuted(playerName)) return;
 
-
-
-				String text = component.getText();
-
-				for(String s : text.split(" "))
-				{
-					if(ChatFilter.isBlocked(s))
-					{
-						text = text.replace(s, ChatFilter.getReplacement());
-					}
-				}
-
-				TextComponent filtered = (TextComponent) component.duplicate();
-				filtered.setText(text);
-
 				for (String s : servers) {
 					if (s.equalsIgnoreCase(ConfigHandler.SERVER_NAME)) {
 						Bukkit.getOnlinePlayers().forEach(pl ->
 						{
 							if(ChatFilter.hasFilter(pl))
 							{
-								pl.spigot().sendMessage(filtered);
+								pl.spigot().sendMessage(filteredComponent);
 							}
 							else
 							{

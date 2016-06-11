@@ -35,6 +35,7 @@ public class ChatFilterFileManager {
 		List<String> blocked = Lists.newArrayList();
 
 		blocked.addAll(conf.getStringList("filtered-words").stream().map(String::toLowerCase).collect(Collectors.toList()));
+
 		return blocked;
 	}
 

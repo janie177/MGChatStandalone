@@ -15,7 +15,7 @@ import java.io.DataOutputStream;
 
 public class MessageSender {
 
-	public static void sendMessageToServers(String message, String playerName)
+	public static void sendMessageToServers(String message, String filtered, String playerName)
 	{
 		try {
 			ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -29,6 +29,7 @@ public class MessageSender {
 			DataOutputStream msgout = new DataOutputStream(msgbytes);
 
 			msgout.writeUTF(message);
+			msgout.writeUTF(filtered);
 			msgout.writeUTF(ConfigHandler.SEND_TO);
 			msgout.writeUTF(playerName);
 			msgout.writeLong(System.currentTimeMillis());

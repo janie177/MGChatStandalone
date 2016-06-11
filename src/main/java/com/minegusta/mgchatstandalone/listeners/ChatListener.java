@@ -51,25 +51,12 @@ public class ChatListener implements Listener {
 
 		TextComponent[] format = Formatter.formatMessage(p, message);
 
-		String text = format[0].getText();
-
-		for(String s : text.split(" "))
-		{
-			if(ChatFilter.isBlocked(s))
-			{
-				text = text.replace(s, ChatFilter.getReplacement());
-			}
-		}
-
-		TextComponent filtered = (TextComponent) format[0].duplicate();
-		filtered.setText(text);
-
 
 
 		Bukkit.getOnlinePlayers().forEach(pl -> {
 			if(ChatFilter.hasFilter(pl))
 			{
-				pl.spigot().sendMessage(filtered);
+				pl.spigot().sendMessage(format[2]);
 			}
 			else
 			{
@@ -77,7 +64,7 @@ public class ChatListener implements Listener {
 			}
 		});
 
-		MessageSender.sendMessageToServers(JSonUtil.componentToString(format[1]), e.getPlayer().getName());
+		MessageSender.sendMessageToServers(JSonUtil.componentToString(format[1]), JSonUtil.componentToString(format[3]), e.getPlayer().getName());
 	}
 
 	private static final List<String> blockedCMDS = ConfigHandler.getBlockedCMDS();
