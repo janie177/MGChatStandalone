@@ -1,5 +1,6 @@
 package com.minegusta.mgchatstandalone.listeners;
 
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.util.Formatter;
 import com.minegusta.mgchatstandalone.util.JSonUtil;
@@ -49,7 +50,32 @@ public class ChatListener implements Listener {
 		e.getRecipients().clear();
 
 		TextComponent[] format = Formatter.formatMessage(p, message);
-		Bukkit.getOnlinePlayers().forEach(pl -> pl.spigot().sendMessage(format[0]));
+
+		String text = format[0].getText();
+
+		for(String s : text.split(" "))
+		{
+			if(ChatFilter.isBlocked(s))
+			{
+				text = text.replace(s, ChatFilter.getReplacement());
+			}
+		}
+
+		TextComponent filtered = (TextComponent) format[0].duplicate();
+		filtered.setText(text);
+
+
+
+		Bukkit.getOnlinePlayers().forEach(pl -> {
+			if(ChatFilter.hasFilter(pl))
+			{
+				pl.spigot().sendMessage(filtered);
+			}
+			else
+			{
+				pl.spigot().sendMessage(format[0]);
+			}
+		});
 
 		MessageSender.sendMessageToServers(JSonUtil.componentToString(format[1]), e.getPlayer().getName());
 	}

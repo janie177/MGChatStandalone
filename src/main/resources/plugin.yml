@@ -35,3 +35,7 @@ commands:
     usage: /ChatInterface <Name>
     description: Open a GUI for managing the chat for a player.
     default: op
+  filter:
+    usage: /Filter <on/off>
+    description: Toggle the chat profanity filter on or off.
+    default: true

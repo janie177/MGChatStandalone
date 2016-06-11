@@ -2,6 +2,7 @@ package com.minegusta.mgchatstandalone.listeners;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.util.JSonUtil;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
@@ -44,9 +45,34 @@ public class MessageListener implements PluginMessageListener {
 
 				if(MuteHandler.isMuted(playerName)) return;
 
+
+
+				String text = component.getText();
+
+				for(String s : text.split(" "))
+				{
+					if(ChatFilter.isBlocked(s))
+					{
+						text = text.replace(s, ChatFilter.getReplacement());
+					}
+				}
+
+				TextComponent filtered = (TextComponent) component.duplicate();
+				filtered.setText(text);
+
 				for (String s : servers) {
 					if (s.equalsIgnoreCase(ConfigHandler.SERVER_NAME)) {
-						Bukkit.getOnlinePlayers().forEach(pl -> pl.spigot().sendMessage(component));
+						Bukkit.getOnlinePlayers().forEach(pl ->
+						{
+							if(ChatFilter.hasFilter(pl))
+							{
+								pl.spigot().sendMessage(filtered);
+							}
+							else
+							{
+								pl.spigot().sendMessage(component);
+							}
+						});
 						break;
 					}
 				}

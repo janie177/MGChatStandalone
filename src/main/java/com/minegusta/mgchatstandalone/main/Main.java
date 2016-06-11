@@ -1,6 +1,8 @@
 package com.minegusta.mgchatstandalone.main;
 
 import com.google.common.collect.Lists;
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilterFileManager;
 import com.minegusta.mgchatstandalone.commands.FactionsChatCommand;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.listeners.FactionsChatListener;
@@ -53,6 +55,12 @@ public class Main extends JavaPlugin {
 
 		//Load the mutes
 		MuteHandler.loadMutes();
+
+		//Load the chatfilter files
+		ChatFilterFileManager.createOrLoadMuteFile(this);
+
+		//Init the chat filter.
+		ChatFilter.init();
 
 		//Start the savetask
 		SaveTask.start();

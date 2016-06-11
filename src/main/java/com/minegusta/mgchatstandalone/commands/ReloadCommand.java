@@ -1,5 +1,7 @@
 package com.minegusta.mgchatstandalone.commands;
 
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
+import com.minegusta.mgchatstandalone.chatfilter.ChatFilterFileManager;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
@@ -18,6 +20,8 @@ public class ReloadCommand implements CommandExecutor {
 			MuteHandler.loadMutes();
 			Main.getPlugin().reloadConfig();
 			ConfigHandler.readConfig(Main.getPlugin().getConfig());
+			ChatFilterFileManager.createOrLoadMuteFile(Main.getPlugin());
+			ChatFilter.init();
 			sender.sendMessage(ChatColor.GREEN + "Reloaded MGChat Standalone");
 		}
 		return true;
