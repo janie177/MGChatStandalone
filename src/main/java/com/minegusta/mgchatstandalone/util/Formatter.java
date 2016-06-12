@@ -94,7 +94,7 @@ public class Formatter {
 		String filteredMessage = message;
 		for(String s : ChatFilter.getBlocked())
 		{
-			filteredMessage = filteredMessage.replace(s, ChatFilter.getReplacement());
+			filteredMessage = filteredMessage.replaceAll("(?i)" + s, ChatFilter.getReplacement());
 		}
 
 		for(BaseComponent component : TextComponent.fromLegacyText(filteredMessage))
