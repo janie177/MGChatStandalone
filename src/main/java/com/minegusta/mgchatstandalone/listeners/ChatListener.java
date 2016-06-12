@@ -1,11 +1,14 @@
 package com.minegusta.mgchatstandalone.listeners;
 
+import com.massivecraft.factions.Factions;
+import com.massivecraft.factions.entity.MConf;
+import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.util.MiscUtil;
+import com.massivecraft.factions.util.RelationUtil;
 import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
-import com.minegusta.mgchatstandalone.util.Formatter;
-import com.minegusta.mgchatstandalone.util.JSonUtil;
-import com.minegusta.mgchatstandalone.util.MessageSender;
-import com.minegusta.mgchatstandalone.util.MuteHandler;
+import com.minegusta.mgchatstandalone.main.Main;
+import com.minegusta.mgchatstandalone.util.*;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -52,15 +55,34 @@ public class ChatListener implements Listener {
 		TextComponent[] format = Formatter.formatMessage(p, message);
 
 
-
 		Bukkit.getOnlinePlayers().forEach(pl -> {
 			if(ChatFilter.hasFilter(pl))
 			{
-				pl.spigot().sendMessage(format[2]);
+				if(Main.FACTIONS_ENABLED)
+				{
+					MPlayer player1 = MPlayer.get(p);
+					MPlayer player2 = MPlayer.get(pl);
+					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
+					String legacyText = format[2].toLegacyText();
+					legacyText = legacyText.replace("$factioncolor$", color + "");
+					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
+					pl.spigot().sendMessage(backToComponent);
+				}
+				else pl.spigot().sendMessage(format[2]);
 			}
 			else
 			{
-				pl.spigot().sendMessage(format[0]);
+				if(Main.FACTIONS_ENABLED)
+				{
+					MPlayer player1 = MPlayer.get(p);
+					MPlayer player2 = MPlayer.get(pl);
+					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
+					String legacyText = format[2].toLegacyText();
+					legacyText = legacyText.replace("$factioncolor$", color + "");
+					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
+					pl.spigot().sendMessage(backToComponent);
+				}
+				else pl.spigot().sendMessage(format[0]);
 			}
 		});
 

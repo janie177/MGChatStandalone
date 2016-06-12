@@ -75,8 +75,8 @@ public class Formatter {
 			Faction faction = uplayer.getFaction();
 			String factionName = faction.getName();
 
-			global = global.replace("$faction$", factionName);
-			local = local.replace("$faction$", factionName);
+			global = global.replace("$faction$", "$factioncolor$" + factionName);
+			local = local.replace("$faction$", "$factioncolor$" + factionName);
 		}
 
 		TextComponent localComponent = TextComponentUtil.stringToComp(local);
