@@ -24,12 +24,10 @@ import java.util.List;
 public class ChatListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onEvent(AsyncPlayerChatEvent e)
-	{
-		if(e.isCancelled()) return;
+	public void onEvent(AsyncPlayerChatEvent e) {
+		if (e.isCancelled()) return;
 
-		if(MuteHandler.isMuted(e.getPlayer().getName()))
-		{
+		if (MuteHandler.isMuted(e.getPlayer().getName())) {
 			e.getPlayer().sendMessage(ChatColor.YELLOW + "You are muted!");
 			e.getPlayer().sendMessage(ChatColor.YELLOW + "You can talk again in " + (MuteHandler.getMute(e.getPlayer().getName()).getRemainingMinutes() + 1) + " minutes.");
 			e.setCancelled(true);
@@ -43,8 +41,7 @@ public class ChatListener implements Listener {
 
 		message = ChatColor.translateAlternateColorCodes('&', message);
 
-		if(!p.hasPermission("minegusta.chatcolor"))
-		{
+		if (!p.hasPermission("minegusta.chatcolor")) {
 			message = ChatColor.stripColor(message);
 		}
 
@@ -53,12 +50,20 @@ public class ChatListener implements Listener {
 		e.getRecipients().clear();
 
 		TextComponent[] format = Formatter.formatMessage(p, message);
-		MPlayer player1 = MPlayer.get(p);
 
-		Bukkit.getOnlinePlayers().forEach(pl -> {
-			if(ChatFilter.hasFilter(pl))
-			{
-				if(Main.FACTIONS_ENABLED)
+		if (!Main.FACTIONS_ENABLED) {
+			Bukkit.getOnlinePlayers().forEach(pl -> {
+				if (ChatFilter.hasFilter(pl)) {
+					pl.spigot().sendMessage(format[2]);
+				} else {
+					pl.spigot().sendMessage(format[0]);
+				}
+			});
+		} else
+		{
+			MPlayer player1 = MPlayer.get(p);
+			Bukkit.getOnlinePlayers().forEach(pl -> {
+				if(ChatFilter.hasFilter(pl))
 				{
 					MPlayer player2 = MPlayer.get(pl);
 					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
@@ -69,11 +74,7 @@ public class ChatListener implements Listener {
 					backToComponent.setClickEvent(format[2].getClickEvent());
 					pl.spigot().sendMessage(backToComponent);
 				}
-				else pl.spigot().sendMessage(format[2]);
-			}
-			else
-			{
-				if(Main.FACTIONS_ENABLED)
+				else
 				{
 					MPlayer player2 = MPlayer.get(pl);
 					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
@@ -84,9 +85,10 @@ public class ChatListener implements Listener {
 					backToComponent.setClickEvent(format[2].getClickEvent());
 					pl.spigot().sendMessage(backToComponent);
 				}
-				else pl.spigot().sendMessage(format[0]);
-			}
-		});
+			});
+		}
+
+
 
 		MessageSender.sendMessageToServers(JSonUtil.componentToString(format[1]), JSonUtil.componentToString(format[3]), e.getPlayer().getName());
 	}
