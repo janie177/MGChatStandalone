@@ -53,14 +53,13 @@ public class ChatListener implements Listener {
 		e.getRecipients().clear();
 
 		TextComponent[] format = Formatter.formatMessage(p, message);
-
+		MPlayer player1 = MPlayer.get(p);
 
 		Bukkit.getOnlinePlayers().forEach(pl -> {
 			if(ChatFilter.hasFilter(pl))
 			{
 				if(Main.FACTIONS_ENABLED)
 				{
-					MPlayer player1 = MPlayer.get(p);
 					MPlayer player2 = MPlayer.get(pl);
 					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
 					String legacyText = format[2].toLegacyText();
@@ -74,7 +73,6 @@ public class ChatListener implements Listener {
 			{
 				if(Main.FACTIONS_ENABLED)
 				{
-					MPlayer player1 = MPlayer.get(p);
 					MPlayer player2 = MPlayer.get(pl);
 					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
 					String legacyText = format[2].toLegacyText();
