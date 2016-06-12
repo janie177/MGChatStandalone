@@ -11,7 +11,7 @@ public class FactionColorUtil {
 	public static TextComponent translateFactionColor(TextComponent input, Player pl, Player p)
 	{
 		MPlayer player1 = MPlayer.get(pl);
-		MPlayer player2 = MPlayer.get(pl);
+		MPlayer player2 = MPlayer.get(p);
 		ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
 		String legacyText = input.toLegacyText();
 		legacyText = legacyText.replace("$factioncolor$", color + "");
