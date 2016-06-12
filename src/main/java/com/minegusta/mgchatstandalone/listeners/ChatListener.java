@@ -65,6 +65,8 @@ public class ChatListener implements Listener {
 					String legacyText = format[2].toLegacyText();
 					legacyText = legacyText.replace("$factioncolor$", color + "");
 					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
+					backToComponent.setHoverEvent(format[2].getHoverEvent());
+					backToComponent.setClickEvent(format[2].getClickEvent());
 					pl.spigot().sendMessage(backToComponent);
 				}
 				else pl.spigot().sendMessage(format[2]);
@@ -78,6 +80,8 @@ public class ChatListener implements Listener {
 					String legacyText = format[2].toLegacyText();
 					legacyText = legacyText.replace("$factioncolor$", color + "");
 					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
+					backToComponent.setHoverEvent(format[2].getHoverEvent());
+					backToComponent.setClickEvent(format[2].getClickEvent());
 					pl.spigot().sendMessage(backToComponent);
 				}
 				else pl.spigot().sendMessage(format[0]);
