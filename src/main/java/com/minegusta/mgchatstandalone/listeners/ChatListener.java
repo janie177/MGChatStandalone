@@ -1,10 +1,5 @@
 package com.minegusta.mgchatstandalone.listeners;
 
-import com.massivecraft.factions.Factions;
-import com.massivecraft.factions.entity.MConf;
-import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.factions.util.MiscUtil;
-import com.massivecraft.factions.util.RelationUtil;
 import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
@@ -61,29 +56,14 @@ public class ChatListener implements Listener {
 			});
 		} else
 		{
-			MPlayer player1 = MPlayer.get(p);
 			Bukkit.getOnlinePlayers().forEach(pl -> {
 				if(ChatFilter.hasFilter(pl))
 				{
-					MPlayer player2 = MPlayer.get(pl);
-					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
-					String legacyText = format[2].toLegacyText();
-					legacyText = legacyText.replace("$factioncolor$", color + "");
-					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
-					backToComponent.setHoverEvent(format[2].getHoverEvent());
-					backToComponent.setClickEvent(format[2].getClickEvent());
-					pl.spigot().sendMessage(backToComponent);
+					pl.spigot().sendMessage(FactionColorUtil.translateFactionColor(format[2], pl, p));
 				}
 				else
 				{
-					MPlayer player2 = MPlayer.get(pl);
-					ChatColor color = RelationUtil.getColorOfThatToMe(player1, player2);
-					String legacyText = format[0].toLegacyText();
-					legacyText = legacyText.replace("$factioncolor$", color + "");
-					TextComponent backToComponent = TextComponentUtil.stringToComp(legacyText);
-					backToComponent.setHoverEvent(format[0].getHoverEvent());
-					backToComponent.setClickEvent(format[0].getClickEvent());
-					pl.spigot().sendMessage(backToComponent);
+					pl.spigot().sendMessage(FactionColorUtil.translateFactionColor(format[0], pl, p));
 				}
 			});
 		}
