@@ -92,12 +92,9 @@ public class Formatter {
 		TextComponent filteredLocal = (TextComponent) localComponent.duplicate();
 
 		String filteredMessage = message;
-		for(String s : message.split(" "))
+		for(String s : ChatFilter.getBlocked())
 		{
-			if(ChatFilter.isBlocked(ChatColor.stripColor(s)))
-			{
-				filteredMessage = filteredMessage.replace(s, ChatFilter.getReplacement());
-			}
+			filteredMessage = filteredMessage.replace(s, ChatFilter.getReplacement());
 		}
 
 		for(BaseComponent component : TextComponent.fromLegacyText(filteredMessage))

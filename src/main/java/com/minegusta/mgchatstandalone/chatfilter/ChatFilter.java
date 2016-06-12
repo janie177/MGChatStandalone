@@ -53,6 +53,11 @@ public class ChatFilter {
 		replacements = ChatFilterFileManager.getReplacementWords();
 	}
 
+	public static List<String> getBlocked()
+	{
+		return blocked;
+	}
+
 	public static boolean isBlocked(String word)
 	{
 		return blocked.contains(word.toLowerCase());
