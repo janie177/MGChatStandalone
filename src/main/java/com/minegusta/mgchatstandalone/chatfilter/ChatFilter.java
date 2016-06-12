@@ -2,7 +2,7 @@ package com.minegusta.mgchatstandalone.chatfilter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.minegusta.mgracesredone.util.RandomUtil;
+import com.minegusta.mgchatstandalone.util.RandomUtil;
 import org.bukkit.entity.Player;
 
 import java.util.List;
