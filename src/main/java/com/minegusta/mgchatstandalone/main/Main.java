@@ -42,7 +42,7 @@ public class Main extends JavaPlugin {
 		PEX_ENABLED = Bukkit.getPluginManager().isPluginEnabled("PermissionsEx");
 		FACTIONS_ENABLED = Bukkit.getPluginManager().isPluginEnabled("Factions");
 		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("MGRacesRedone");
-		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("HeroPvP");
+		HEROPVP_ENABLED = Bukkit.getPluginManager().isPluginEnabled("HeroPvP");
 
 		if(FACTIONS_ENABLED)
 		{
