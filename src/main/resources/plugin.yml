@@ -1,7 +1,7 @@
 name: MGChatStandalone
 version: 0.1.0.0
 author: janie177
-softdepend: [PermissionsEx, Factions, MGRacesRedone]
+softdepend: [PermissionsEx, Factions, MGRacesRedone, HeroPvP]
 main: com.minegusta.mgchatstandalone.main.Main
 commands:
   whisper:
