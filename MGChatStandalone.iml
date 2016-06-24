@@ -7,7 +7,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/depends" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -33,6 +32,15 @@
       <library name="Maven: factions:factions:2.7">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/depends/Factions.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: heropvp:net.minegusta:2.7">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/depends/HeroPvP.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

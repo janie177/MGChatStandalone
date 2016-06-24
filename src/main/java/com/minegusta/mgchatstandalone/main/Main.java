@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 
 	private static Plugin PLUGIN;
-	public static boolean PEX_ENABLED, FACTIONS_ENABLED, RACES_ENABLED;
+	public static boolean PEX_ENABLED, FACTIONS_ENABLED, RACES_ENABLED, HEROPVP_ENABLED;
 
 	@Override
 	public void onEnable() {
@@ -42,6 +42,7 @@ public class Main extends JavaPlugin {
 		PEX_ENABLED = Bukkit.getPluginManager().isPluginEnabled("PermissionsEx");
 		FACTIONS_ENABLED = Bukkit.getPluginManager().isPluginEnabled("Factions");
 		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("MGRacesRedone");
+		RACES_ENABLED = Bukkit.getPluginManager().isPluginEnabled("HeroPvP");
 
 		if(FACTIONS_ENABLED)
 		{

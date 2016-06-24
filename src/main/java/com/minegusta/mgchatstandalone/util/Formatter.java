@@ -7,7 +7,9 @@ import com.minegusta.mgchatstandalone.chatfilter.ChatFilter;
 import com.minegusta.mgchatstandalone.config.ConfigHandler;
 import com.minegusta.mgchatstandalone.main.Main;
 import com.minegusta.mgracesredone.main.Races;
+import com.minegusta.mgracesredone.playerdata.MGPlayer;
 import net.md_5.bungee.api.chat.*;
+import net.minegusta.heropvp.main.HeroPvpPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
@@ -74,6 +76,12 @@ public class Formatter {
 
 			global = global.replace("$faction$", "$factioncolor$" + factionName);
 			local = local.replace("$faction$", "$factioncolor$" + factionName);
+		}
+		if(Main.HEROPVP_ENABLED)
+		{
+			String tag = HeroPvpPlugin.getTag(p);
+			global = global.replace("$hero$", tag);
+			local = local.replace("$hero$", tag);
 		}
 
 		TextComponent localComponent = TextComponentUtil.stringToComp(local);

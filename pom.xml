@@ -43,6 +43,13 @@
             <scope>system</scope>
         </dependency>
         <dependency>
+            <groupId>heropvp</groupId>
+            <artifactId>net.minegusta</artifactId>
+            <version>2.7</version>
+            <systemPath>${basedir}/depends/HeroPvP.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
             <groupId>MGRacesRedone</groupId>
             <artifactId>MGRacesRedone</artifactId>
             <version>2.7</version>
