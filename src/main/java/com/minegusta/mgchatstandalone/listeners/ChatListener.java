@@ -46,6 +46,8 @@ public class ChatListener implements Listener {
 
 		TextComponent[] format = Formatter.formatMessage(p, message);
 
+		Bukkit.getLogger().info(format[0].getText());
+
 		if (!Main.FACTIONS_ENABLED) {
 			Bukkit.getOnlinePlayers().forEach(pl -> {
 				if (ChatFilter.hasFilter(pl)) {
