@@ -49,7 +49,6 @@ public class MessageListener implements PluginMessageListener {
 
 				for (String s : servers) {
 					if (s.equalsIgnoreCase(ConfigHandler.SERVER_NAME)) {
-						Bukkit.getLogger().info(component.getText());
 						Bukkit.getOnlinePlayers().forEach(pl ->
 						{
 							if(ChatFilter.hasFilter(pl))
