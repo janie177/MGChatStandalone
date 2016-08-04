@@ -49,6 +49,8 @@ public class ChatFilter {
 	 */
 	public static void init()
 	{
+		blocked.clear();
+		replacements.clear();
 		blocked = ChatFilterFileManager.getBlockedWords();
 		replacements = ChatFilterFileManager.getReplacementWords();
 	}

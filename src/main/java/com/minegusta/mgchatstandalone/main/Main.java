@@ -10,6 +10,7 @@ import com.minegusta.mgchatstandalone.listeners.MessageListener;
 import com.minegusta.mgchatstandalone.task.SaveTask;
 import com.minegusta.mgchatstandalone.util.MuteHandler;
 import com.minegusta.mgchatstandalone.util.PlayersUtil;
+import net.minegusta.mglib.saving.mgplayer.PlayerSaveManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.Plugin;
@@ -19,6 +20,7 @@ public class Main extends JavaPlugin {
 
 	private static Plugin PLUGIN;
 	public static boolean PEX_ENABLED, FACTIONS_ENABLED, RACES_ENABLED, HEROPVP_ENABLED;
+	private static PlayerSaveManager<MGPlayer> saveManager;
 
 	@Override
 	public void onEnable() {
@@ -36,6 +38,9 @@ public class Main extends JavaPlugin {
 		for (Listener l : Listener.values()) {
 			Bukkit.getPluginManager().registerEvents(l.getListener(), this);
 		}
+
+		//Init save manager
+		saveManager = new PlayerSaveManager<>(this, MGPlayer.class, 180);
 
 
 		//Pex
@@ -72,6 +77,11 @@ public class Main extends JavaPlugin {
 	{
 		MuteHandler.saveMutes();
 		SaveTask.stop();
+	}
+
+	public static PlayerSaveManager getSaveManager()
+	{
+		return saveManager;
 	}
 
 	public static Plugin getPlugin()

@@ -43,6 +43,11 @@
             <scope>system</scope>
         </dependency>
         <dependency>
+            <groupId>net.minegusta</groupId>
+            <artifactId>mglib</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>heropvp</groupId>
             <artifactId>net.minegusta</artifactId>
             <version>2.7</version>
